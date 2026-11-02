@@ -1,0 +1,477 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>SJB's HDPE Pipe Reference</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  --bg:#EDF0F3;--surface:#FFFFFF;--surface2:#F5F7F9;--ink:#12181E;--muted:#58656F;--line:#D2D9DF;
+  --accent:#1B5BBE;--accent-ink:#FFFFFF;--soft:#E2EAF6;
+  --heat:#B1430A;--heat-soft:#FBEADB;--cool:#0A6B7E;--cool-soft:#DCEFF3;--pipe:#1A2128;
+  --rail:#11161B;--rail-ink:#E7ECF0;--rail-muted:#8D9AA6;--rail-line:#27313B;--rail-input:#1A222A;
+  --display:'Barlow Condensed','Arial Narrow',Arial,sans-serif;
+  --body:'Barlow',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0D1115;--surface:#161C22;--surface2:#1B2229;--ink:#E8EDF1;--muted:#94A2AE;--line:#28313A;
+    --accent:#6AA4FF;--accent-ink:#0B1626;--soft:#1C2B42;
+    --heat:#FF9A5A;--heat-soft:#34231A;--cool:#5CCBDD;--cool-soft:#14303A;
+    --pipe:#46535F;--rail:#090C0F;--rail-ink:#E7ECF0;--rail-muted:#8D9AA6;--rail-line:#232C35;--rail-input:#12181E;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0D1115;--surface:#161C22;--surface2:#1B2229;--ink:#E8EDF1;--muted:#94A2AE;--line:#28313A;
+  --accent:#6AA4FF;--accent-ink:#0B1626;--soft:#1C2B42;
+  --heat:#FF9A5A;--heat-soft:#34231A;--cool:#5CCBDD;--cool-soft:#14303A;
+  --pipe:#46535F;--rail:#090C0F;--rail-ink:#E7ECF0;--rail-muted:#8D9AA6;--rail-line:#232C35;--rail-input:#12181E;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:15px/1.5 var(--body);margin:0}
+img{max-width:100%}
+[hidden]:not([hidden=until-found i]){display:none!important}
+button,select,input{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+.rail{background:var(--rail);color:var(--rail-ink);display:flex;flex-direction:column;gap:12px;border-bottom:3px solid var(--accent);padding-block:14px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.brand{display:flex;align-items:center;gap:10px}
+.brand svg{width:38px;height:38px;flex:none}
+.wm{display:flex;flex-direction:column;line-height:1}
+.wm b{font:700 24px/1 var(--display);letter-spacing:.05em}
+.wm span{font:500 10.5px/1.4 var(--body);letter-spacing:.18em;text-transform:uppercase;color:var(--rail-muted)}
+.search{position:relative;display:block}
+.search svg{position:absolute;left:12px;top:50%;width:18px;height:18px;transform:translateY(-50%);color:var(--rail-muted);pointer-events:none}
+.search input{width:100%;height:44px;padding:0 12px 0 40px;border-radius:6px;border:1px solid var(--rail-line);background:var(--rail-input);color:var(--rail-ink);font-size:16px}
+.search input::placeholder{color:var(--rail-muted)}
+.sys{display:flex;width:100%;background:var(--rail-input);border-color:var(--rail-line)}
+.sys button{flex:1;color:var(--rail-muted);font:600 13px/1 var(--body);letter-spacing:.08em}
+.sys button+button{border-left-color:var(--rail-line)}
+.sys button.on{color:var(--accent-ink)}
+.tabs{display:flex;gap:4px}
+.tabs a{flex:1;text-align:center;padding:10px 6px;border-radius:6px;color:var(--rail-muted);text-decoration:none;font:600 12.5px/1 var(--body);letter-spacing:.08em;text-transform:uppercase}
+.tabs a[aria-current="page"]{background:var(--rail-line);color:var(--rail-ink)}
+.rail-label{display:flex;justify-content:space-between;font:500 10.5px/1 var(--body);letter-spacing:.16em;text-transform:uppercase;color:var(--rail-muted);margin-bottom:8px}
+.sizewrap{min-height:0;display:flex;flex-direction:column}
+.sizelist{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;scrollbar-width:thin}
+.sz{flex:none;display:flex;align-items:baseline;justify-content:space-between;gap:14px;background:transparent;border:1px solid var(--rail-line);color:var(--rail-ink);padding:8px 12px;border-radius:6px;min-height:42px}
+.sz-n{font:700 21px/1 var(--display);letter-spacing:.02em}
+.sz-od{font:400 12px/1 var(--mono);color:var(--rail-muted);white-space:nowrap}
+.sz.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.sz.on .sz-od{color:inherit}
+.none{margin:0;color:var(--rail-muted);font-size:14px}
+
+.main{padding-block:22px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));min-width:0}
+.view{max-width:1020px;display:flex;flex-direction:column;gap:22px}
+.eyebrow{margin:0;font:600 11px/1.3 var(--body);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+h1,h2,h3,p{margin:0}
+.h2{font:700 24px/1.1 var(--display);letter-spacing:.03em;text-transform:uppercase;text-wrap:balance}
+.hint{color:var(--muted);font-size:13.5px;max-width:68ch}
+
+.hero{display:flex;flex-wrap:wrap;gap:18px 32px;align-items:center;justify-content:space-between}
+.nom{font:700 clamp(68px,17vw,116px)/.82 var(--display);letter-spacing:-.01em}
+.nom small{font-size:.5em;margin-left:.04em;font-weight:600}
+.odline{margin-top:10px;font:400 14px/1.4 var(--mono);color:var(--muted)}
+.odline b{color:var(--ink);font-weight:600}
+.xs{margin:0;text-align:center}
+.xs svg{width:150px;height:150px;max-width:100%}
+.xs figcaption{font:500 12px/1.4 var(--mono);color:var(--muted);margin-top:4px}
+
+.row{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px}
+.row>.lab{font:600 11px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);min-width:96px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font:500 14px/1 var(--mono);padding:0 13px;min-height:38px;border:1px solid var(--line);background:var(--surface);border-radius:999px}
+.chip.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:var(--surface)}
+.seg button{border:0;background:transparent;padding:0 14px;min-height:38px;font:500 13px/1 var(--mono)}
+.seg button+button{border-left:1px solid var(--line)}
+.seg button.on{background:var(--accent);color:var(--accent-ink)}
+
+.spec{display:grid;grid-template-columns:repeat(auto-fill,minmax(172px,1fr));background:var(--surface);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.cell{padding:14px 16px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);margin:0 -1px -1px 0;min-width:0}
+.cell .k{font:600 10.5px/1.3 var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.cell .v{margin-top:6px;font:500 23px/1.1 var(--mono);font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.cell .v i{font:500 12px var(--body);font-style:normal;color:var(--muted);margin-left:4px}
+.cell .s{margin-top:5px;font:400 12px/1.4 var(--mono);color:var(--muted)}
+.cell.heat{background:var(--heat-soft)}
+.cell.heat .v,.cell.heat .k{color:var(--heat)}
+.cell.cool{background:var(--cool-soft)}
+.cell.cool .v,.cell.cool .k{color:var(--cool)}
+.cell.heat .v i,.cell.cool .v i{color:inherit;opacity:.8}
+
+.tw{overflow-x:auto;border:1px solid var(--line);background:var(--surface);border-radius:6px}
+table{border-collapse:collapse;width:100%;font:400 13px/1.3 var(--mono);font-variant-numeric:tabular-nums}
+th,td{padding:10px 13px;text-align:right;white-space:nowrap;border-bottom:1px solid var(--line)}
+tr:last-child td{border-bottom:0}
+th:first-child,td:first-child{text-align:left}
+thead th{font:600 10.5px/1.3 var(--body);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);background:var(--surface2);vertical-align:bottom}
+thead th small{display:block;font:400 10.5px/1.3 var(--mono);letter-spacing:0;text-transform:none;margin-top:2px}
+td.heat{color:var(--heat)}td.cool{color:var(--cool)}
+td.ref{opacity:.62}
+tbody tr[data-dr],tbody tr[data-size]{cursor:pointer}
+tr.on td{background:var(--soft)}
+tr.on td:first-child{font-weight:600}
+.lnk{all:unset;cursor:pointer;font:700 17px/1 var(--display);letter-spacing:.03em;display:inline-block;min-height:22px}
+.lnk:focus-visible,.cellb:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.mx td:first-child,.mx th:first-child{position:sticky;left:0;background:var(--surface);z-index:1;box-shadow:1px 0 0 var(--line)}
+.mx thead th:first-child{background:var(--surface2)}
+.mx tr.on td:first-child{background:var(--soft)}
+.mx td.col,.mx th.col{background:var(--soft)}
+.mx td.sel{background:var(--accent);color:var(--accent-ink)}
+.mx td.na{color:var(--muted);opacity:.5}
+.cellb{all:unset;cursor:pointer;display:block;width:100%;text-align:right}
+.legend{font-size:12.5px;color:var(--muted);max-width:76ch}
+
+.pickers{display:flex;flex-wrap:wrap;gap:10px 18px}
+.pickers label{display:flex;flex-direction:column;gap:4px;font:600 10.5px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+select{min-height:44px;min-width:130px;padding:0 34px 0 12px;border:1px solid var(--line);border-radius:6px;background:var(--surface);color:var(--ink);font:500 16px var(--mono)}
+.callout{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:14px 16px;font-size:14px;max-width:76ch}
+.callout b{font-weight:600}
+.steps{margin:0;padding:0;list-style:none;counter-reset:s;display:grid;gap:0;max-width:76ch;border-top:1px solid var(--line)}
+.steps li{counter-increment:s;display:grid;grid-template-columns:34px 1fr;gap:10px;padding:12px 0;border-bottom:1px solid var(--line);font-size:14.5px}
+.steps li::before{content:counter(s);font:600 13px/1.5 var(--mono);color:var(--accent)}
+.steps li.hot::before{color:var(--heat)}
+.steps li.cold::before{color:var(--cool)}
+.steps b{font-weight:600}
+.notes ul{margin:0;padding-left:18px;display:grid;gap:8px;max-width:76ch;font-size:14.5px}
+.notes a{color:var(--accent)}
+.sources{display:grid;gap:6px;font-size:14px;padding:0;margin:0;list-style:none}
+.sources a{color:var(--accent)}
+
+@media (min-width:880px){
+  .app{display:grid;grid-template-columns:300px minmax(0,1fr);align-items:start}
+  .rail{position:sticky;top:env(safe-area-inset-top,0px);height:calc(100vh - env(safe-area-inset-top,0px));border-bottom:0;border-right:3px solid var(--accent);padding-block:22px 16px;padding-right:16px;gap:16px}
+  .sizewrap{flex:1;min-height:0}
+  .sizelist{flex-direction:column;overflow-x:hidden;overflow-y:auto;flex:1;min-height:0;padding-bottom:0;padding-right:4px}
+  .sz{width:100%}
+  .main{padding-left:36px;padding-top:30px}
+}
+@media (max-width:520px){
+  .cell .v{font-size:20px}
+  th,td{padding:9px 10px}
+}
+</style></head><body>
+
+<div class="app">
+  <aside class="rail">
+    <div class="brand">
+      <svg id="logo" viewBox="0 0 40 40" role="img" aria-label="HDPE Pipe Reference logo">
+        <path fill="#E7ECF0" fill-rule="evenodd" d="M20 2a18 18 0 1 0 0.001 0zM20 9a11 11 0 1 1 -0.001 0z"/>
+        <circle cx="20" cy="3.6" r="2.6" fill="#6AA4FF"/>
+        <circle cx="36.4" cy="20" r="2.6" fill="#6AA4FF"/>
+        <circle cx="20" cy="36.4" r="2.6" fill="#6AA4FF"/>
+        <circle cx="3.6" cy="20" r="2.6" fill="#6AA4FF"/>
+      </svg>
+      <div class="wm"><b>HDPE</b><span>Pipe Reference</span></div>
+    </div>
+    <label class="search">
+      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="9" cy="9" r="5.5"/><path d="M13.2 13.2 17 17"/></svg>
+      <input id="q" type="search" inputmode="search" autocomplete="off" placeholder="Search size, OD or DR (try 8 or DR11)" aria-label="Search pipe sizes">
+    </label>
+    <div class="seg sys" id="sys" role="group" aria-label="Pipe size system">
+      <button type="button" data-sys="IPS">IPS</button>
+      <button type="button" data-sys="DIPS">DIPS</button>
+    </div>
+    <nav class="tabs" id="tabs" aria-label="Sections">
+      <a href="#sizes" data-tab="sizes">Sizes</a>
+      <a href="#fusion" data-tab="fusion">Fusion</a>
+      <a href="#notes" data-tab="notes">Notes</a>
+    </nav>
+    <div class="sizewrap">
+      <div class="rail-label"><span id="rlab">Nominal size</span><span id="count"></span></div>
+      <div class="sizelist" id="sizelist"></div>
+    </div>
+  </aside>
+
+  <main class="main" id="main">
+    <section class="view" id="view-sizes" data-view="sizes"><div id="sizes-root"></div></section>
+
+    <section class="view" id="view-fusion" data-view="fusion" hidden>
+      <div>
+        <p class="eyebrow">Butt fusion · ASTM F2620 parameters</p>
+        <h2 class="h2" style="margin-top:6px">Heat soak and cool down</h2>
+      </div>
+      <div class="pickers">
+        <label for="fsize">Size<select id="fsize"></select></label>
+        <label for="fdr">DR<select id="fdr"></select></label>
+      </div>
+      <div id="fusion-root" style="display:flex;flex-direction:column;gap:22px"></div>
+    </section>
+
+    <section class="view notes" id="view-notes" data-view="notes" hidden>
+      <div>
+        <p class="eyebrow">Assumptions</p>
+        <h2 class="h2" style="margin-top:6px">How the numbers are worked out</h2>
+      </div>
+      <ul>
+        <li><b>Sizes.</b> Two systems. IPS (iron pipe size) outside diameters run 1/2 in through 63 in. DIPS (ductile iron pipe size) outside diameters run 4 in through 60 in and are larger than IPS for the same nominal size, so the pipe fits ductile iron fittings. Not every DR is made in every size, and availability differs by manufacturer. Confirm with your supplier.</li>
+        <li><b>DIPS outside diameters</b> follow the ductile iron pipe OD series used by AWWA C906. Check them against your manufacturer's data sheet.</li>
+        <li><b>Units.</b> Every dimension is shown in decimal inches and millimetres. Fractional inches (marked ≈) are rounded to the nearest 1/64 in for quick reading at the machine. Use the decimal value when it matters.</li>
+        <li><b>Minimum wall</b> = OD ÷ DR, rounded to 0.001 in.</li>
+        <li><b>Average wall</b> = minimum wall × 1.06, the middle of the +12% tolerance. <b>Average ID</b> = OD − 2 × average wall.</li>
+        <li><b>Pressure class</b> = 2 × HDS ÷ (DR − 1) for water at 73°F. HDS is 1000 psi for PE4710 and 800 psi for PE2708 / PE3408. Higher temperatures and other fluids need a derating.</li>
+        <li><b>Weight</b> uses a density of 0.955 g/cm³ (0.0345 lb/in³) and the average wall. Treat it as approximate.</li>
+        <li><b>Heat soak</b> = 4.5 min per inch of minimum wall. ASTM F2620 requires it as a minimum for pipe 14 in OD and larger. Under 14 in, the melt bead size governs and the soak value is shown for reference only.</li>
+        <li><b>Cool time</b> = 11 min per inch of minimum wall, held under fusion pressure, then another 30 min before pulling, pressure testing or rough handling.</li>
+        <li><b>Fusion force</b> = interfacial pressure × pipe end area, π × (OD − wall) × wall. Your gauge reading is this force divided by the machine's piston area, plus drag pressure.</li>
+        <li><b>McElroy.</b> These are the ASTM F2620 butt fusion parameters that McElroy fusion procedures are built on. Check them against your McElroy machine's data, its DataLogger settings, and your project's qualified procedure before you fuse.</li>
+      </ul>
+      <div>
+        <p class="eyebrow" style="margin-bottom:8px">Sources</p>
+        <ul class="sources">
+          <li><a href="https://conduitcalc.plasticpipe.org/energy/pdf/epsd-comparison-procedures-astm-fm2620-ppi-tr-33.pdf" target="_blank" rel="noopener">Plastics Pipe Institute: ASTM F2620 and PPI TR-33 procedure comparison</a></li>
+          <li><a href="https://www.trictools.com/wp-content/uploads/2015/07/HDPE-Butt-Fusion-ProceduresPerformance.pdf" target="_blank" rel="noopener">Performance Pipe: HDPE butt fusion procedures (PP 750-TN-05)</a></li>
+        </ul>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+(function(){
+const DRS=[7,9,11,13.5,15.5,17,21,26,32.5,41];
+const rng=(a,b)=>DRS.filter(d=>d>=a&&d<=b);
+const RAW=[
+ ['1/2',0.840,rng(7,11)],['3/4',1.050,rng(7,11)],['1',1.315,rng(7,13.5)],['1-1/4',1.660,rng(7,13.5)],
+ ['1-1/2',1.900,[7,9,11,13.5,17]],['2',2.375,rng(7,17)],['3',3.500,rng(7,21)],['4',4.500,rng(7,26)],
+ ['6',6.625,rng(7,32.5)],['8',8.625,rng(7,32.5)],['10',10.750,rng(7,41)],['12',12.750,rng(7,41)],
+ ['14',14,rng(7,41)],['16',16,rng(7,41)],['18',18,rng(7,41)],['20',20,rng(7,41)],['22',22,rng(7,41)],['24',24,rng(7,41)],
+ ['26',26,rng(9,41)],['28',28,rng(9,41)],['30',30,rng(9,41)],['32',32,rng(9,41)],['34',34,rng(9,41)],['36',36,rng(9,41)],
+ ['42',42,rng(11,41)],['48',48,rng(11,41)],['54',54,rng(11,41)],['63',63,rng(11,41)]
+];
+const DRAW=[
+ ['4',4.800,rng(9,21)],['6',6.900,rng(9,26)],['8',9.050,rng(9,32.5)],['10',11.100,rng(9,32.5)],['12',13.200,rng(9,32.5)],
+ ['14',15.300,rng(9,32.5)],['16',17.400,rng(9,32.5)],['18',19.500,rng(9,32.5)],['20',21.600,rng(9,32.5)],['24',25.800,rng(9,32.5)],
+ ['30',32.000,rng(9,32.5)],['36',38.300,rng(9,32.5)],['42',44.500,rng(11,32.5)],['48',50.800,rng(11,32.5)],
+ ['54',57.560,rng(11,32.5)],['60',61.610,rng(11,32.5)]
+];
+const SIZES=RAW.map(r=>r.concat('IPS')).concat(DRAW.map(r=>r.concat('DIPS')))
+  .map((r,i)=>({i,nom:r[0],od:r[1],dr:r[2],sys:r[3]}));
+const BEADS=[[2.37,'1/32'],[3.5,'1/16'],[8.625,'3/16'],[12.75,'1/4'],[24,'3/8'],[36,'7/16'],[Infinity,'9/16']];
+function beadFor(od){
+  for(let i=0;i<BEADS.length;i++){
+    const lim=BEADS[i][0];
+    if(i<2?od<lim:od<=lim){const f=BEADS[i][1];const p=f.split('/');return {frac:f,dec:p[0]/p[1],mm:(p[0]/p[1])*25.4};}
+  }
+}
+const wallOf=(od,dr)=>Math.round(od/dr*1000)/1000;
+const psiOf=(dr,mat)=>Math.round(2*(mat===4710?1000:800)/(dr-1));
+function calc(sz,dr,mat){
+  const od=sz.od,t=wallOf(od,dr),ta=t*1.06,id=od-2*ta;
+  const lbft=Math.PI*(od-ta)*ta*12*0.0345;
+  return {od,t,ta,id,psi:psiOf(dr,mat),lbft,kgm:lbft*1.48816,gal:Math.PI/4*id*id*1200/231,
+    soak:4.5*t,cool:11*t,bead:beadFor(od),area:Math.PI*(od-t)*t};
+}
+function fmtTime(min){
+  const s=Math.round(min*60);
+  if(s<60)return s+' s';
+  if(s<3600){return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')+' min';}
+  const tm=Math.round(s/60);
+  return Math.floor(tm/60)+' h '+String(tm%60).padStart(2,'0')+' min';
+}
+function parseQuery(raw){
+  const q=raw.toLowerCase().replace(/["”″]/g,'').replace(/dr\s*[-:]?\s*(?=\d)/g,'dr')
+    .replace(/\b(inches|inch|in|ips|dips|hdpe|pipe)\b/g,' ').trim();
+  const toks=q.split(/\s+/).filter(Boolean);
+  let dr=null;
+  toks.forEach(t=>{const m=/^dr(\d+(?:\.\d+)?)$/.exec(t);if(m&&dr===null)dr=parseFloat(m[1]);});
+  return {toks,dr};
+}
+function matches(sz,toks){
+  const odS=sz.od.toFixed(3),mmS=(sz.od*25.4).toFixed(1);
+  return toks.every(t=>{
+    if(t==='dr')return true;
+    const m=/^dr(\d+(?:\.\d+)?)$/.exec(t);
+    if(m)return sz.dr.includes(parseFloat(m[1]));
+    if(/^\d+(\.\d+)?$/.test(t)){
+      if(t.includes('.'))return odS.startsWith(t)||mmS.startsWith(t)||sz.dr.some(d=>wallOf(sz.od,d).toFixed(3).startsWith(t));
+      if(t.length>=3)return mmS.startsWith(t)||odS.startsWith(t);
+      return sz.nom.startsWith(t);
+    }
+    return sz.nom.startsWith(t);
+  });
+}
+
+const $=s=>document.querySelector(s);
+const KEY='hdpe-pipe-ref-v1';
+const S={size:7,dr:11,mat:4710,q:'',hi:null};
+try{const o=JSON.parse(localStorage.getItem(KEY)||'null');
+  if(o&&SIZES[o.size]){S.size=o.size;S.mat=o.mat===2708?2708:4710;S.dr=SIZES[o.size].dr.includes(o.dr)?o.dr:S.dr;}}catch(e){}
+if(!SIZES[S.size].dr.includes(S.dr))S.dr=SIZES[S.size].dr[0];
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify({size:S.size,dr:S.dr,mat:S.mat}));}catch(e){}};
+
+const sys=()=>SIZES[S.size].sys;
+let parsed={toks:[],dr:null};
+const filtered=()=>SIZES.filter(s=>s.sys===sys()&&matches(s,parsed.toks));
+function setSize(i){
+  S.size=i;
+  const av=SIZES[i].dr;
+  if(!av.includes(S.dr)){S.dr=av.reduce((a,b)=>Math.abs(b-S.dr)<Math.abs(a-S.dr)?b:a);}
+}
+function setSys(k){
+  if(sys()===k)return;
+  const cur=SIZES[S.size],c=SIZES.filter(s=>s.sys===k);
+  setSize((c.find(s=>s.nom===cur.nom)||c.reduce((a,b)=>Math.abs(b.od-cur.od)<Math.abs(a.od-cur.od)?b:a)).i);
+}
+const n3=v=>v.toFixed(3);
+const mm=(inch,d)=>(inch*25.4).toFixed(d===undefined?1:d);
+const lbf=v=>Math.round(v).toLocaleString('en-US');
+const fr=v=>{let n=Math.round(v*64),w=Math.floor(n/64);n-=w*64;if(!n)return w+'"';let d=64;while(n%2===0){n/=2;d/=2;}return (w?w+'-':'')+n+'/'+d+'"';};
+const soakNote=s=>s.od>=14?'Required minimum':'Reference. Bead size governs under 14 in';
+
+function xsec(s,dr){
+  const c=calc(s,dr,S.mat),R=68,tw=c.t*(R*2/s.od),ri=Math.max(R-tw,1);
+  const ring='M'+(80-R)+',80 a'+R+','+R+' 0 1,0 '+(2*R)+',0 a'+R+','+R+' 0 1,0 '+(-2*R)+',0 z M'+(80-ri)+',80 a'+ri+','+ri+' 0 1,1 '+(2*ri)+',0 a'+ri+','+ri+' 0 1,1 '+(-2*ri)+',0 z';
+  const dots=[90,180,270,0].map(a=>{const r=a*Math.PI/180;return '<circle cx="'+(80+Math.cos(r)*(R-tw/2)).toFixed(1)+'" cy="'+(80+Math.sin(r)*(R-tw/2)).toFixed(1)+'" r="'+Math.min(3.2,Math.max(tw/2,1.4)).toFixed(1)+'" fill="var(--accent)"/>';}).join('');
+  return '<svg viewBox="0 0 160 160" role="img" aria-label="Pipe cross-section to scale, DR '+dr+'"><path d="'+ring+'" fill="var(--pipe)" fill-rule="evenodd"/>'+dots+'</svg>';
+}
+
+function renderRail(){
+  const list=filtered(),total=SIZES.filter(s=>s.sys===sys()).length;
+  $('#count').textContent=list.length===total?total+' sizes':list.length+' of '+total;
+  $('#rlab').textContent='Nominal size · '+sys();
+  document.querySelectorAll('#sys button').forEach(b=>{const on=b.dataset.sys===sys();b.classList.toggle('on',on);b.setAttribute('aria-pressed',on);});
+  $('#sizelist').innerHTML=list.length?list.map(s=>'<button type="button" class="sz'+(s.i===S.size?' on':'')+'" data-size="'+s.i+'" aria-pressed="'+(s.i===S.size)+'"><span class="sz-n">'+s.nom+'"</span><span class="sz-od">'+n3(s.od)+' · '+fr(s.od)+'</span></button>').join(''):'<p class="none">No size matches. Try 8, 4.5 or DR11.</p>';
+}
+
+function renderSizes(){
+  const s=SIZES[S.size],c=calc(s,S.dr,S.mat),list=filtered();
+  const chips=s.dr.map(d=>'<button type="button" class="chip'+(d===S.dr?' on':'')+'" data-dr="'+d+'" aria-pressed="'+(d===S.dr)+'">DR '+d+'</button>').join('');
+  const rows=s.dr.map(d=>{
+    const k=calc(s,d,S.mat);
+    return '<tr class="'+(d===S.dr?'on':'')+'" data-dr="'+d+'"><td><button type="button" class="lnk" data-dr="'+d+'">DR '+d+'</button></td><td>'+n3(k.t)+'</td><td>'+fr(k.t)+'</td><td>'+mm(k.t,2)+'</td><td>'+n3(k.id)+'</td><td>'+fr(k.id)+'</td><td>'+mm(k.id)+'</td><td>'+k.psi+'</td><td>'+k.lbft.toFixed(2)+'</td><td class="heat'+(s.od<14?' ref':'')+'">'+fmtTime(k.soak)+'</td><td class="cool">'+fmtTime(k.cool)+'</td></tr>';
+  }).join('');
+  const head=DRS.map(d=>'<th class="'+(d===S.dr?'col':'')+'">DR '+d+'<small>'+psiOf(d,S.mat)+' psi</small></th>').join('');
+  const body=list.map(z=>'<tr class="'+(z.i===S.size?'on':'')+'"><td><button type="button" class="lnk" data-size="'+z.i+'">'+z.nom+'"</button></td><td>'+n3(z.od)+'</td>'+DRS.map(d=>{
+    if(!z.dr.includes(d))return '<td class="na">–</td>';
+    const sel=z.i===S.size&&d===S.dr;
+    return '<td class="'+(sel?'sel':(d===S.dr?'col':''))+'"><button type="button" class="cellb" data-size="'+z.i+'" data-dr="'+d+'">'+n3(wallOf(z.od,d))+'</button></td>';
+  }).join('')+'</tr>').join('');
+  $('#sizes-root').innerHTML=
+  '<div class="view">'+
+  '<div class="hero"><div><p class="eyebrow">'+s.sys+' HDPE pipe'+(s.sys==='DIPS'?' · ductile iron pipe size':' · iron pipe size')+'</p><h1 class="nom" style="margin-top:8px">'+s.nom+'<small>"</small></h1><p class="odline"><b>'+n3(s.od)+' in</b> ≈ '+fr(s.od)+' OD · '+mm(s.od)+' mm</p></div>'+
+  '<figure class="xs">'+xsec(s,S.dr)+'<figcaption>DR '+S.dr+' · wall to scale</figcaption></figure></div>'+
+  '<div class="row"><span class="lab">Pressure basis</span><div class="seg" role="group" aria-label="Pipe material"><button type="button" data-mat="4710" class="'+(S.mat===4710?'on':'')+'" aria-pressed="'+(S.mat===4710)+'">PE4710</button><button type="button" data-mat="2708" class="'+(S.mat===2708?'on':'')+'" aria-pressed="'+(S.mat===2708)+'">PE2708 / 3408</button></div></div>'+
+  '<div class="row"><span class="lab">Dimension ratio</span><div class="chips">'+chips+'</div></div>'+
+  '<div class="spec">'+
+   '<div class="cell"><div class="k">Minimum wall</div><div class="v">'+n3(c.t)+'<i>in</i></div><div class="s">≈ '+fr(c.t)+' · '+mm(c.t,2)+' mm</div></div>'+
+   '<div class="cell"><div class="k">Average wall</div><div class="v">'+n3(c.ta)+'<i>in</i></div><div class="s">≈ '+fr(c.ta)+' · '+mm(c.ta,2)+' mm</div></div>'+
+   '<div class="cell"><div class="k">Average ID</div><div class="v">'+n3(c.id)+'<i>in</i></div><div class="s">≈ '+fr(c.id)+' · '+mm(c.id)+' mm</div></div>'+
+   '<div class="cell"><div class="k">Pressure class</div><div class="v">'+c.psi+'<i>psi</i></div><div class="s">Water, 73°F · '+(S.mat===4710?'PE4710':'PE2708/3408')+'</div></div>'+
+   '<div class="cell"><div class="k">Weight</div><div class="v">'+c.lbft.toFixed(2)+'<i>lb/ft</i></div><div class="s">'+c.kgm.toFixed(2)+' kg/m</div></div>'+
+   '<div class="cell"><div class="k">Volume</div><div class="v">'+c.gal.toFixed(1)+'<i>gal/100 ft</i></div><div class="s">At average ID</div></div>'+
+  '</div>'+
+  '<div class="row" style="justify-content:space-between"><h2 class="h2">Butt fusion, DR '+S.dr+'</h2><a class="hint" style="color:var(--accent)" href="#fusion">Full fusion steps</a></div>'+
+  '<div class="spec">'+
+   '<div class="cell heat"><div class="k">Heat soak</div><div class="v">'+fmtTime(c.soak)+'</div><div class="s">'+soakNote(s)+'</div></div>'+
+   '<div class="cell cool"><div class="k">Cool down</div><div class="v">'+fmtTime(c.cool)+'</div><div class="s">Under fusion pressure, then wait 30 min</div></div>'+
+   '<div class="cell"><div class="k">Minimum bead</div><div class="v">'+c.bead.frac+'<i>in</i></div><div class="s">'+c.bead.dec.toFixed(3)+' in · '+c.bead.mm.toFixed(1)+' mm</div></div>'+
+   '<div class="cell"><div class="k">Fusion force at 75 psi</div><div class="v">'+lbf(75*c.area)+'<i>lbf</i></div><div class="s">60 to 90 psi: '+lbf(60*c.area)+' to '+lbf(90*c.area)+'</div></div>'+
+  '</div>'+
+  '<h2 class="h2">Every DR for '+s.nom+'" '+s.sys+' pipe</h2>'+
+  '<div class="tw"><table><thead><tr><th>DR</th><th>Min wall in</th><th>Min wall ≈ in</th><th>Min wall mm</th><th>Avg ID in</th><th>Avg ID ≈ in</th><th>Avg ID mm</th><th>Pressure psi</th><th>lb/ft</th><th>Heat soak</th><th>Cool down</th></tr></thead><tbody>'+rows+'</tbody></table></div>'+
+  '<p class="legend">Heat soak is a required minimum for pipe 14 in OD and larger. Dimmed values under 14 in are for reference only. Cool down is the minimum hold under pressure. ≈ in is rounded to the nearest 1/64 in.</p>'+
+  '<h2 class="h2">Minimum wall, all '+s.sys+' sizes and DRs</h2>'+
+  '<div class="tw"><table class="mx"><thead><tr><th>Size</th><th>OD in</th>'+head+'</tr></thead><tbody>'+(body||'<tr><td colspan="12">No size matches your search.</td></tr>')+'</tbody></table></div>'+
+  '<p class="legend">Wall thickness in decimal inches. A dash means that DR is not listed for that size. Tap a value to open it.</p>'+
+  '</div>';
+}
+
+function renderFusion(){
+  const s=SIZES[S.size],c=calc(s,S.dr,S.mat);
+  const rows=SIZES.filter(z=>z.sys===s.sys&&z.dr.includes(S.dr)).map(z=>{
+    const k=calc(z,S.dr,S.mat);
+    return '<tr class="'+(z.i===S.size?'on':'')+'" data-size="'+z.i+'"><td><button type="button" class="lnk" data-size="'+z.i+'">'+z.nom+'"</button></td><td>'+n3(k.t)+'</td><td>'+mm(k.t,2)+'</td><td>'+n3(k.ta)+'</td><td>'+mm(k.ta,2)+'</td><td>'+n3(k.id)+'</td><td>'+mm(k.id)+'</td><td>'+k.bead.frac+'</td><td class="heat'+(z.od<14?' ref':'')+'">'+fmtTime(k.soak)+'</td><td class="cool">'+fmtTime(k.cool)+'</td><td>'+lbf(75*k.area)+'</td></tr>';
+  }).join('');
+  const beadRows=[['Under 2.37','1/32'],['2.37 to under 3.5','1/16'],['3.5 to 8.625','3/16'],['Over 8.625 to 12.75','1/4'],['Over 12.75 to 24','3/8'],['Over 24 to 36','7/16'],['Over 36 to 65','9/16']].map(r=>{
+    const p=r[1].split('/'),dec=p[0]/p[1];
+    return '<tr><td>'+r[0]+'</td><td>'+r[1]+'</td><td>'+dec.toFixed(3)+'</td><td>'+(dec*25.4).toFixed(1)+'</td></tr>';
+  }).join('');
+  $('#fusion-root').innerHTML=
+  '<div class="spec">'+
+   '<div class="cell heat"><div class="k">Heat soak</div><div class="v">'+fmtTime(c.soak)+'</div><div class="s">4.5 min per inch of wall. '+soakNote(s)+'</div></div>'+
+   '<div class="cell cool"><div class="k">Cool down</div><div class="v">'+fmtTime(c.cool)+'</div><div class="s">11 min per inch of wall, held under fusion pressure</div></div>'+
+   '<div class="cell"><div class="k">Then wait</div><div class="v">30<i>min</i></div><div class="s">Before pulling, pressure testing or rough handling</div></div>'+
+   '<div class="cell"><div class="k">Heater surface</div><div class="v">400–450<i>°F</i></div><div class="s">204 to 232 °C</div></div>'+
+   '<div class="cell"><div class="k">Interfacial pressure</div><div class="v">60–90<i>psi</i></div><div class="s">Target 75 psi</div></div>'+
+   '<div class="cell"><div class="k">Fusion force at 75 psi</div><div class="v">'+lbf(75*c.area)+'<i>lbf</i></div><div class="s">60 psi: '+lbf(60*c.area)+' · 90 psi: '+lbf(90*c.area)+'</div></div>'+
+   '<div class="cell"><div class="k">Minimum bead</div><div class="v">'+c.bead.frac+'<i>in</i></div><div class="s">'+c.bead.dec.toFixed(3)+' in · '+c.bead.mm.toFixed(1)+' mm, initial melt</div></div>'+
+   '<div class="cell"><div class="k">Minimum wall</div><div class="v">'+n3(c.t)+'<i>in</i></div><div class="s">≈ '+fr(c.t)+' · '+mm(c.t,2)+' mm · '+s.nom+'" '+s.sys+' DR '+S.dr+' (used for soak and cool)</div></div>'+
+   '<div class="cell"><div class="k">Average wall</div><div class="v">'+n3(c.ta)+'<i>in</i></div><div class="s">≈ '+fr(c.ta)+' · '+mm(c.ta,2)+' mm</div></div>'+
+   '<div class="cell"><div class="k">Average ID</div><div class="v">'+n3(c.id)+'<i>in</i></div><div class="s">≈ '+fr(c.id)+' · '+mm(c.id)+' mm · OD '+n3(c.od)+' in ≈ '+fr(c.od)+'</div></div>'+
+  '</div>'+
+  '<div class="callout"><b>Setting the gauge.</b> Gauge pressure = fusion force ÷ your machine\'s total piston area + drag pressure. Measure drag with the pipe in the clamps and add it to the interfacial pressure. Piston area is on the McElroy machine\'s data plate or in its manual.</div>'+
+  '<div><h2 class="h2" style="margin-bottom:10px">Fusion sequence</h2><ol class="steps">'+
+   '<li><span><b>Face and align.</b> Face both ends until clean and square. Check high-low is within 10% of the wall and the gap is closed.</span></li>'+
+   '<li><span><b>Set pressure.</b> Measure drag. Gauge for heating = drag + interfacial pressure.</span></li>'+
+   '<li class="hot"><span><b>Heat to bead.</b> Hold the ends against the heater at fusion pressure until the melt bead reaches '+c.bead.frac+' in.</span></li>'+
+   '<li class="hot"><span><b>Heat soak.</b> Drop to drag pressure and hold for '+fmtTime(c.soak)+(s.od>=14?' minimum.':' (reference; bead size governs under 14 in).')+'</span></li>'+
+   '<li class="hot"><span><b>Open and remove the heater</b> as fast as you can, inside the maximum time allowed by ASTM F2620 for this wall. Inspect the melt.</span></li>'+
+   '<li><span><b>Close and bring up pressure</b> smoothly to the full fusion pressure. Do not slam the ends together.</span></li>'+
+   '<li class="cold"><span><b>Cool down.</b> Hold fusion pressure for at least '+fmtTime(c.cool)+'.</span></li>'+
+   '<li class="cold"><span><b>Wait 30 more minutes</b> before pulling, pressure testing or rough handling. Heavy walls may need longer.</span></li>'+
+  '</ol></div>'+
+  '<div><h2 class="h2" style="margin-bottom:10px">Every '+s.sys+' size at DR '+S.dr+'</h2><div class="tw"><table><thead><tr><th>Size</th><th>Min wall in</th><th>Min wall mm</th><th>Avg wall in</th><th>Avg wall mm</th><th>Avg ID in</th><th>Avg ID mm</th><th>Bead in</th><th>Heat soak</th><th>Cool down</th><th>Force at 75 psi, lbf</th></tr></thead><tbody>'+rows+'</tbody></table></div></div>'+
+  '<div><h2 class="h2" style="margin-bottom:10px">Minimum bead by pipe OD</h2><div class="tw"><table><thead><tr><th>Pipe OD in</th><th>Bead in</th><th>Bead in (dec)</th><th>Bead mm</th></tr></thead><tbody>'+beadRows+'</tbody></table></div></div>'+
+  '<p class="legend">Reference only. Follow the procedure qualified for your job and your McElroy machine\'s data. ≈ in is rounded to the nearest 1/64 in.</p>';
+}
+
+function syncSelects(){
+  const fs=$('#fsize'),fd=$('#fdr');
+  if(fs.dataset.sys!==sys()){
+    fs.innerHTML=SIZES.filter(s=>s.sys===sys()).map(s=>'<option value="'+s.i+'">'+s.nom+'" ('+n3(s.od)+' OD)</option>').join('');
+    fs.dataset.sys=sys();
+  }
+  fs.value=String(S.size);
+  const sig=SIZES[S.size].dr.join(',');
+  if(fd.dataset.sig!==sig){fd.innerHTML=SIZES[S.size].dr.map(d=>'<option value="'+d+'">DR '+d+'</option>').join('');fd.dataset.sig=sig;}
+  fd.value=String(S.dr);
+}
+
+function renderAll(){renderRail();renderSizes();renderFusion();syncSelects();}
+
+function route(first){
+  const h=location.hash.slice(1);
+  const v=['sizes','fusion','notes'].indexOf(h)>-1?h:'sizes';
+  document.querySelectorAll('[data-view]').forEach(el=>{el.hidden=el.dataset.view!==v;});
+  document.querySelectorAll('#tabs a').forEach(a=>{if(a.dataset.tab===v)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current');});
+  if(!first)toMain();
+}
+function toMain(){
+  if(window.matchMedia('(max-width:879px)').matches){
+    const calm=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    $('#main').scrollIntoView({behavior:calm?'auto':'smooth',block:'start'});
+  }
+}
+
+document.addEventListener('click',function(e){
+  const b=e.target.closest('[data-size],[data-dr],[data-mat],[data-sys]');
+  if(!b)return;
+  if(b.dataset.sys!==undefined){setSys(b.dataset.sys);}
+  if(b.dataset.size!==undefined)setSize(+b.dataset.size);
+  if(b.dataset.dr!==undefined)S.dr=+b.dataset.dr;
+  if(b.dataset.mat!==undefined)S.mat=+b.dataset.mat;
+  save();renderAll();
+  if(b.closest('.rail')&&b.dataset.sys===undefined)toMain();
+});
+$('#fsize').addEventListener('change',function(){setSize(+this.value);save();renderAll();});
+$('#fdr').addEventListener('change',function(){S.dr=+this.value;save();renderAll();});
+$('#q').addEventListener('input',function(){
+  S.q=this.value;parsed=parseQuery(S.q);S.hi=parsed.dr;
+  const f=filtered();
+  if(f.length&&!f.some(s=>s.i===S.size))setSize(f[0].i);
+  if(S.hi&&SIZES[S.size].dr.includes(S.hi))S.dr=S.hi;
+  save();renderAll();
+});
+$('#q').addEventListener('keydown',function(e){if(e.key==='Enter'){this.blur();toMain();}});
+window.addEventListener('hashchange',()=>route(false));
+
+renderAll();
+route(true);
+})();
+</script>
+</body></html>
